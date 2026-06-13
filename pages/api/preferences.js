@@ -1,5 +1,3 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 import fs from "fs";
 import path from "path";
 
@@ -43,10 +41,9 @@ function defaultPrefs() {
 }
 
 export default async function handler(req, res) {
-  const session = await getServerSession(req, res, authOptions);
-  if (!session) return res.status(401).json({ error: "Unauthenticated" });
+  const userId = "demo-user"; // TODO: replace with Auth0 session
 
-  const userId = session.user?.sub || session.user?.email;
+  // session.user?.email;
   if (!userId) return res.status(400).json({ error: "No user identifier" });
 
   if (req.method === "GET") {

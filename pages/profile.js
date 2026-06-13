@@ -1,5 +1,3 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]";
 import Head from "next/head";
 import { useState, useEffect, useCallback } from "react";
 import Navbar from "../components/Navbar";
@@ -8,13 +6,13 @@ import styles from "../styles/Profile.module.css";
 
 // ─── Server-side: pull session + prefs ───────────────────────────────────────
 export async function getServerSideProps(context) {
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = { user: { name: "Demo User", email: "demo@apppassport.local" } };
   if (!session) {
     return { redirect: { destination: "/auth/signin?callbackUrl=/profile", permanent: false } };
   }
 
   // Load prefs server-side so page renders correctly on first load
-  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  const baseUrl = process.env.APP_BASE_URL || "http://localhost:3000";
   let initialPrefs = null;
   try {
     const r = await fetch(`${baseUrl}/api/preferences`, {
