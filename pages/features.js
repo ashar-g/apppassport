@@ -117,7 +117,7 @@ export default function Features() {
                   <button
                     className={`btn ${plan.highlight ? "btn-primary" : "btn-secondary"}`}
                     style={{ width: "100%" }}
-                    onClick={() => !session && window.location.href="/auth/login";//"okta", { callbackUrl: "/dashboard" })}
+                    onClick={() => { if (!session) window.location.href="/auth/login"; }}
                   >
                     {plan.cta}
                   </button>

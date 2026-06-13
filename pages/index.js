@@ -50,7 +50,7 @@ export default function Home() {
               {session ? (
                 <Link href="/dashboard" className="btn btn-primary btn-lg">Go to Dashboard →</Link>
               ) : (
-                <button className="btn btn-primary btn-lg" onClick={() => window.location.href="/auth/login";//"okta", { callbackUrl: "/dashboard" })}>
+                <button className="btn btn-primary btn-lg" onClick={() => { window.location.href="/auth/login"; }}>
                   Get started free
                 </button>
               )}
@@ -164,7 +164,7 @@ export default function Home() {
                 {session ? (
                   <Link href="/dashboard" className="btn btn-primary btn-lg">Open Dashboard</Link>
                 ) : (
-                  <button className="btn btn-primary btn-lg" onClick={() => window.location.href="/auth/login";//"okta", { callbackUrl: "/dashboard" })}>
+                  <button className="btn btn-primary btn-lg" onClick={() => { window.location.href="/auth/login"; }}>
                     Start for free
                   </button>
                 )}
