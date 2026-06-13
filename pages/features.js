@@ -23,7 +23,7 @@ export default function Features() {
   const { data: session } = useSession();
   return (
     <>
-      <Head><title>Features — Nexus</title></Head>
+      <Head><title>Features — AppPassport</title></Head>
       <Navbar />
       <main className={styles.main}>
         <section className={styles.header}>
@@ -36,13 +36,13 @@ export default function Features() {
           <div className="container">
             {[
               { tag:"Observability", title:"See everything. Miss nothing.", visual:"📡",
-                desc:"Nexus ingests logs, metrics, and traces in a unified pipeline. Our streaming engine processes over 2 billion events per day with consistent sub-10ms latency.",
+                desc:"AppPassport ingests logs, metrics, and traces in a unified pipeline. Our streaming engine processes over 2 billion events per day with consistent sub-10ms latency.",
                 points:["OpenTelemetry native","eBPF-based infrastructure metrics","Distributed tracing with flame graphs","Log aggregation with structured parsing"] },
               { tag:"AI & ML", title:"Intelligence built in, not bolted on.", visual:"🧠",
                 desc:"Our models learn what 'normal' looks like for your systems and surface meaningful signals — not noise — before incidents escalate.",
                 points:["Baseline learning in under 24 hours","Root cause correlation across services","Capacity forecasting (30/60/90-day)","Cost anomaly detection"] },
               { tag:"Automation", title:"Runbooks that run themselves.", visual:"🔁",
-                desc:"When a threshold is breached, Nexus can automatically scale infrastructure, restart services, page the right person, and write an incident summary.",
+                desc:"When a threshold is breached, AppPassport can automatically scale infrastructure, restart services, page the right person, and write an incident summary.",
                 points:["Visual runbook builder","Git-backed automation as code","PagerDuty & Opsgenie integration","Full audit trail of every action"] },
             ].map((f, i) => (
               <div key={f.tag} className={`${styles.deepFeature} ${i % 2 === 1 ? styles.reverse : ""}`}>
@@ -74,7 +74,7 @@ export default function Features() {
           <div className="container">
             <div className={styles.sectionHeader}>
               <h2>Integrates with your entire stack</h2>
-              <p>Connect Nexus to the tools you already use in minutes.</p>
+              <p>Connect AppPassport to the tools you already use in minutes.</p>
             </div>
             <div className={styles.intGrid}>
               {integrations.map(([name, cat]) => (

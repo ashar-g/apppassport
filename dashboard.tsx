@@ -8,7 +8,7 @@ export default function Dashboard(props) {
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
           <div>
-            <p className="text-sm font-semibold text-blue-600">Nexus Platform</p>
+            <p className="text-sm font-semibold text-blue-600">AppPassport Platform</p>
             <h1 className="text-2xl font-bold">Executive Dashboard</h1>
           </div>
           <a

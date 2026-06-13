@@ -13,7 +13,7 @@ export default function Footer() {
                 <path d="M3 12l3-3 3 3 3-3" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
               </svg>
             </div>
-            Nexus
+            AppPassport
           </Link>
           <p>The intelligent platform for modern engineering teams.</p>
         </div>
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.bottom}>
-        <span>© {new Date().getFullYear()} Nexus Technologies, Inc.</span>
+        <span>© {new Date().getFullYear()} AppPassport Technologies, Inc.</span>
         <span>Built with Next.js · Secured by Okta OIDC</span>
       </div>
     </footer>

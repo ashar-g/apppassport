@@ -47,7 +47,7 @@ function Spark({ data }) {
 export default function Analytics({ user }) {
   return (
     <>
-      <Head><title>Analytics — Nexus</title></Head>
+      <Head><title>Analytics — AppPassport</title></Head>
       <Navbar />
       <main className={styles.main}>
         <div className="container">

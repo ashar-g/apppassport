@@ -52,7 +52,7 @@ export default function Navbar() {
               <path d="M3 12l3-3 3 3 3-3" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
             </svg>
           </div>
-          <span>Nexus</span>
+          <span>AppPassport</span>
         </Link>
 
         <div className={styles.links}>

@@ -5,7 +5,7 @@ import styles from "../styles/404.module.css";
 export default function NotFound() {
   return (
     <>
-      <Head><title>404 — Nexus</title></Head>
+      <Head><title>404 — AppPassport</title></Head>
       <div className={styles.page}>
         <div className={styles.content}>
           <span className={styles.code}>404</span>

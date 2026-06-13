@@ -159,7 +159,7 @@ export default function Profile({ serverSession, initialPrefs }) {
 
   return (
     <>
-      <Head><title>My Profile — Nexus</title></Head>
+      <Head><title>My Profile — AppPassport</title></Head>
       <Navbar />
       <main className={styles.main}>
         <div className="container">

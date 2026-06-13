@@ -14,7 +14,7 @@ export default function AuthError() {
   const message = msgs[query.error] || msgs.Default;
   return (
     <>
-      <Head><title>Auth Error — Nexus</title></Head>
+      <Head><title>Auth Error — AppPassport</title></Head>
       <div className={styles.page}>
         <div className={styles.card}>
           <div className={styles.iconWrap}>

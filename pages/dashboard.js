@@ -51,7 +51,7 @@ export default function Dashboard({ user }) {
 
   return (
     <>
-      <Head><title>Dashboard — Nexus</title></Head>
+      <Head><title>Dashboard — AppPassport</title></Head>
       <Navbar />
       <main className={styles.main}>
         <div className="container">

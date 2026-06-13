@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Nexus — The Intelligent Platform for Modern Teams</title>
+        <title>AppPassport — The Intelligent Platform for Modern Teams</title>
         <meta name="description" content="Real-time observability, AI analytics, and automated incident response for engineering teams." />
       </Head>
       <Navbar />
@@ -45,7 +45,7 @@ export default function Home() {
               Your infrastructure,<br/>fully under control.
             </h1>
             <p className={styles.heroDesc}>
-              Nexus gives engineering teams real-time observability, AI-powered analytics, and automated incident response — unified in one platform.
+              AppPassport gives engineering teams real-time observability, AI-powered analytics, and automated incident response — unified in one platform.
             </p>
             <div className={styles.heroCta}>
               {session ? (
@@ -159,7 +159,7 @@ export default function Home() {
             <div className={styles.ctaBox}>
               <div className={styles.ctaText}>
                 <h2>Ready to get started?</h2>
-                <p>Join 50,000+ teams who trust Nexus with their critical infrastructure.</p>
+                <p>Join 50,000+ teams who trust AppPassport with their critical infrastructure.</p>
               </div>
               <div className={styles.ctaBtns}>
                 {session ? (

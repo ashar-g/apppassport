@@ -36,7 +36,7 @@ export default function SignIn() {
 
   return (
     <>
-      <Head><title>Sign In — Nexus</title></Head>
+      <Head><title>Sign In — AppPassport</title></Head>
       <div className={styles.page}>
 
         {/* ── Left panel ── */}
@@ -48,7 +48,7 @@ export default function SignIn() {
                 <path d="M3 12l3-3 3 3 3-3" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" opacity="0.6"/>
               </svg>
             </div>
-            Nexus
+            AppPassport
           </Link>
 
           <div className={styles.card}>
@@ -169,7 +169,7 @@ export default function SignIn() {
             </p>
 
             <div className={styles.quote}>
-              &ldquo;Nexus cut our incident response time by 70%. The multi-IDP SSO meant zero friction rolling it out across our Okta and Azure teams.&rdquo;
+              &ldquo;AppPassport cut our incident response time by 70%. The multi-IDP SSO meant zero friction rolling it out across our Okta and Azure teams.&rdquo;
             </div>
             <div className={styles.quoteAuthor}>
               <div className={styles.quoteAvatar}>S</div>
