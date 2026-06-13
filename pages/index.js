@@ -1,149 +1,111 @@
-import Head from "next/head";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "../styles/Home.module.css";
 
-const stats = [
-  { value: "99.99%", label: "Uptime SLA" },
-  { value: "<10ms", label: "P99 Latency" },
-  { value: "50K+", label: "Teams" },
-  { value: "2B+", label: "Events/Day" },
+const FEATURES = [
+  { icon: "🔐", title: "Enterprise SSO", desc: "Auth0-powered login supporting OAuth 2.0, OIDC, SAML, and social providers." },
+  { icon: "📊", title: "Live Dashboard", desc: "Real-time metrics and service health monitoring at a glance." },
+  { icon: "👤", title: "User Profiles", desc: "Rich user profiles synced directly from your identity provider." },
+  { icon: "🛡️", title: "Zero Trust",   desc: "Every request authenticated. No implicit trust, ever." },
+  { icon: "⚡", title: "Edge-Ready",   desc: "Deployed globally on Vercel Edge Network for sub-100ms response." },
+  { icon: "🔄", title: "Auto Refresh", desc: "Silent token refresh keeps sessions alive without interrupting users." },
 ];
-
-const features = [
-  { icon: "⚡", title: "Real-Time Observability", desc: "Sub-10ms event streaming across every service in your stack. Always know what's happening." },
-  { icon: "🧠", title: "AI Anomaly Detection", desc: "ML models learn your baseline and surface issues before they escalate. Zero config required." },
-  { icon: "🔒", title: "Auth0 Auth0", desc: "OIDC with Auth0, Azure AD, or any SAML provider. Full RBAC and audit trails included." },
-  { icon: "📊", title: "Predictive Analytics", desc: "Forecast capacity, detect cost anomalies, and surface optimizations automatically." },
-  { icon: "🔁", title: "Automated Runbooks", desc: "Trigger remediations automatically when thresholds breach. Reduce MTTR by 70%." },
-  { icon: "🌐", title: "Multi-Cloud Native", desc: "First-class AWS, GCP, Azure, and Kubernetes support. One pane of glass." },
-];
-
-const logos = ["Stripe", "Shopify", "Figma", "Notion", "Vercel", "Linear"];
 
 export default function Home() {
-  const session = null;
-  return (
-    <>
-      <Head>
-        <title>AppPassport — The Intelligent Platform for Modern Teams</title>
-        <meta name="description" content="Real-time observability, AI analytics, and automated incident response for engineering teams." />
-      </Head>
-      <Navbar />
-      <main className={styles.main}>
+  const { user, isLoading } = useUser();
 
+  return (
+    <div className={styles.page}>
+      <Navbar />
+
+      <main className={styles.main}>
         {/* Hero */}
         <section className={styles.hero}>
-          <div className={styles.heroInner}>
+          <div className={styles.heroInner + " fadeUp"}>
             <div className={styles.heroBadge}>
-              <span className={styles.badgeDot}/>
-              Now with AI-Powered Anomaly Detection
+              <span className={styles.badgeDot} />
+              Now with Auth0 Universal Login
             </div>
             <h1 className={styles.heroTitle}>
-              Your infrastructure,<br/>fully under control.
+              Intelligence built in,<br />not bolted on.
             </h1>
-            <p className={styles.heroDesc}>
-              AppPassport gives engineering teams real-time observability, AI-powered analytics, and automated incident response — unified in one platform.
+            <p className={styles.heroSub}>
+              AppPassport gives your team a secure, beautiful portal — SSO, user profiles,
+              and a live dashboard — ready to deploy in minutes.
             </p>
             <div className={styles.heroCta}>
-              {session ? (
-                <Link href="/dashboard" className="btn btn-primary btn-lg">Go to Dashboard →</Link>
+              {user ? (
+                <>
+                  <Link href="/dashboard" className="btn btn-primary">Go to Dashboard →</Link>
+                  <Link href="/profile" className="btn btn-secondary">My Profile</Link>
+                </>
               ) : (
-                <button className="btn btn-primary btn-lg" onClick={() => { window.location.href="/auth/login"; }}>
-                  Get started free
-                </button>
+                <>
+                  <a href="/api/auth/login?returnTo=/dashboard" className="btn btn-primary">
+                    Get started free
+                  </a>
+                  <Link href="/features" className="btn btn-secondary">See features</Link>
+                </>
               )}
-              <Link href="/features" className="btn btn-secondary btn-lg">See how it works</Link>
             </div>
-            <p className={styles.heroNote}>Free plan available · No credit card required</p>
           </div>
 
-          {/* Dashboard preview */}
           <div className={styles.heroVisual}>
-            <div className={styles.mockWindow}>
-              <div className={styles.mockTitleBar}>
-                <div className={styles.mockDots}><span/><span/><span/></div>
-                <div className={styles.mockAddr}>nexus.app/dashboard</div>
+            <div className={styles.heroCard}>
+              <div className={styles.cardHeader}>
+                <span className={styles.cardDot} style={{ background: "#ef4444" }} />
+                <span className={styles.cardDot} style={{ background: "#f59e0b" }} />
+                <span className={styles.cardDot} style={{ background: "#05b169" }} />
+                <span className={styles.cardTitle}>AppPassport Dashboard</span>
               </div>
-              <div className={styles.mockBody}>
-                <div className={styles.mockSidebar}>
-                  {["Dashboard","Analytics","Services","Alerts","Runbooks"].map((item, i) => (
-                    <div key={item} className={`${styles.mockSideItem} ${i===0 ? styles.mockSideActive : ""}`}>{item}</div>
+              <div className={styles.cardBody}>
+                <div className={styles.statRow}>
+                  {[["99.9%", "Uptime"], ["12ms", "P95 Latency"], ["2.4k", "Auth / day"]].map(([val, label]) => (
+                    <div key={label} className={styles.statItem}>
+                      <span className={styles.statVal}>{val}</span>
+                      <span className={styles.statLabel}>{label}</span>
+                    </div>
                   ))}
                 </div>
-                <div className={styles.mockMain}>
-                  <div className={styles.mockKpis}>
-                    {[["99.9%","Uptime"],["8ms","Latency"],["0.02%","Errors"]].map(([v,l]) => (
-                      <div key={l} className={styles.mockKpi}>
-                        <span className={styles.mockKpiVal}>{v}</span>
-                        <span className={styles.mockKpiLabel}>{l}</span>
+                <div className={styles.userRow}>
+                  <div className={styles.fakeAvatar}>JD</div>
+                  <div>
+                    <div className={styles.fakeName}>Jane Doe</div>
+                    <div className={styles.fakeEmail}>jane@company.com</div>
+                  </div>
+                  <div className={styles.activePill}>● Active</div>
+                </div>
+                <div className={styles.progressSection}>
+                  {[["API Quota", 72], ["Storage", 41], ["Seats", 88]].map(([label, pct]) => (
+                    <div key={label} className={styles.progressItem}>
+                      <div className={styles.progressHeader}>
+                        <span>{label}</span><span>{pct}%</span>
                       </div>
-                    ))}
-                  </div>
-                  <div className={styles.mockChart}>
-                    <svg viewBox="0 0 260 60" preserveAspectRatio="none">
-                      <defs>
-                        <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#0052ff" stopOpacity="0.15"/>
-                          <stop offset="100%" stopColor="#0052ff" stopOpacity="0"/>
-                        </linearGradient>
-                      </defs>
-                      <path d="M0,45 C20,42 40,25 65,22 C90,19 110,30 130,27 C150,24 170,10 195,12 C215,14 235,28 260,22 L260,60 L0,60Z" fill="url(#hg)"/>
-                      <path d="M0,45 C20,42 40,25 65,22 C90,19 110,30 130,27 C150,24 170,10 195,12 C215,14 235,28 260,22" fill="none" stroke="#0052ff" strokeWidth="1.5"/>
-                    </svg>
-                  </div>
-                  <div className={styles.mockServices}>
-                    {[["API Gateway","healthy"],["Auth Service","healthy"],["Data Pipeline","degraded"]].map(([name,status]) => (
-                      <div key={name} className={styles.mockService}>
-                        <span className={`${styles.mockDot2} ${styles[status]}`}/>
-                        <span>{name}</span>
-                        <span className={styles.mockStatus}>{status}</span>
+                      <div className={styles.progressTrack}>
+                        <div className={styles.progressFill} style={{ width: `${pct}%`, opacity: pct > 80 ? 1 : 0.7 }} />
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Trusted by */}
-        <section className={styles.trustedSection}>
-          <div className="container">
-            <p className={styles.trustedLabel}>Trusted by engineering teams at</p>
-            <div className={styles.logos}>
-              {logos.map(l => <div key={l} className={styles.logoChip}>{l}</div>)}
-            </div>
-          </div>
-        </section>
-
-        {/* Stats */}
-        <section className={styles.statsSection}>
-          <div className="container">
-            <div className={styles.statsGrid}>
-              {stats.map(s => (
-                <div key={s.label} className={styles.statCard}>
-                  <span className={styles.statVal}>{s.value}</span>
-                  <span className={styles.statLabel}>{s.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Features */}
-        <section className={styles.featSection}>
+        {/* Features grid */}
+        <section className={styles.featuresSection}>
           <div className="container">
             <div className={styles.sectionHead}>
-              <span className={styles.eyebrow}>Platform</span>
-              <h2>Everything your team needs to move fast</h2>
-              <p>Purpose-built for platform engineers who demand reliability, speed, and clarity at scale.</p>
+              <span className={styles.eyebrow}>Why AppPassport</span>
+              <h2>Everything your team needs</h2>
+              <p>A complete, production-ready authentication and user management platform.</p>
             </div>
-            <div className={styles.featGrid}>
-              {features.map(f => (
-                <div key={f.title} className={styles.featCard}>
-                  <div className={styles.featIcon}>{f.icon}</div>
+            <div className={styles.featureGrid}>
+              {FEATURES.map(f => (
+                <div key={f.title} className={styles.featureCard}>
+                  <div className={styles.featureIcon}>{f.icon}</div>
                   <h3>{f.title}</h3>
                   <p>{f.desc}</p>
                 </div>
@@ -153,28 +115,24 @@ export default function Home() {
         </section>
 
         {/* CTA banner */}
-        <section className={styles.ctaSection}>
+        <section className={styles.ctaBanner}>
           <div className="container">
-            <div className={styles.ctaBox}>
-              <div className={styles.ctaText}>
+            <div className={styles.ctaInner}>
+              <div>
                 <h2>Ready to get started?</h2>
-                <p>Join 50,000+ teams who trust AppPassport with their critical infrastructure.</p>
+                <p>Connect your Auth0 tenant and deploy in under 5 minutes.</p>
               </div>
-              <div className={styles.ctaBtns}>
-                {session ? (
-                  <Link href="/dashboard" className="btn btn-primary btn-lg">Open Dashboard</Link>
-                ) : (
-                  <button className="btn btn-primary btn-lg" onClick={() => { window.location.href="/auth/login"; }}>
-                    Start for free
-                  </button>
-                )}
-                <Link href="/features" className="btn btn-secondary btn-lg">Learn more</Link>
-              </div>
+              {user ? (
+                <Link href="/dashboard" className="btn btn-primary">Open Dashboard →</Link>
+              ) : (
+                <a href="/api/auth/login?returnTo=/dashboard" className="btn btn-primary">Sign in with Auth0</a>
+              )}
             </div>
           </div>
         </section>
       </main>
+
       <Footer />
-    </>
+    </div>
   );
 }

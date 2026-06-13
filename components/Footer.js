@@ -17,11 +17,12 @@ export default function Footer() {
           </Link>
           <p>The intelligent platform for modern engineering teams.</p>
         </div>
+
         <div className={styles.cols}>
           {[
-            { title: "Product", links: [["Features", "/features"], ["Dashboard", "/dashboard"], ["Analytics", "/analytics"]] },
+            { title: "Product", links: [["Features", "/features"], ["Dashboard", "/dashboard"], ["Profile", "/profile"]] },
             { title: "Company", links: [["About", "#"], ["Blog", "#"], ["Careers", "#"]] },
-            { title: "Legal", links: [["Privacy", "#"], ["Terms", "#"], ["Security", "#"]] },
+            { title: "Legal",   links: [["Privacy", "#"], ["Terms", "#"], ["Security", "#"]] },
           ].map(col => (
             <div key={col.title} className={styles.col}>
               <span className={styles.colTitle}>{col.title}</span>
@@ -32,9 +33,10 @@ export default function Footer() {
           ))}
         </div>
       </div>
+
       <div className={styles.bottom}>
         <span>© {new Date().getFullYear()} AppPassport Technologies, Inc.</span>
-        <span>Built with Next.js · Secured by Okta OIDC</span>
+        <span>Built with Next.js · Secured by Auth0</span>
       </div>
     </footer>
   );

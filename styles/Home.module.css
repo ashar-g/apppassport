@@ -1,16 +1,18 @@
-.main { padding-top: 62px; }
+.page { display: flex; flex-direction: column; min-height: 100vh; }
+.main { flex: 1; padding-top: 62px; }
 
 /* Hero */
 .hero {
   min-height: calc(100vh - 62px);
   display: flex;
   align-items: center;
-  gap: 64px;
+  gap: 60px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 24px 60px;
 }
-.heroInner { flex: 1; max-width: 520px; animation: fadeUp 0.6s ease both; }
+.heroInner { flex: 1; max-width: 520px; }
+
 .heroBadge {
   display: inline-flex;
   align-items: center;
@@ -38,165 +40,182 @@
   color: var(--text-primary);
   margin-bottom: 20px;
 }
-.heroDesc {
+.heroSub {
   font-size: 17px;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.65;
   margin-bottom: 32px;
+  max-width: 440px;
 }
-.heroCta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
-.heroNote { font-size: 13px; color: var(--text-tertiary); }
+.heroCta { display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* Dashboard mock */
-.heroVisual { flex: 1; max-width: 560px; animation: fadeUp 0.6s 0.1s ease both; }
-.mockWindow {
+/* Hero visual / mock UI */
+.heroVisual { flex: 1; display: flex; justify-content: center; }
+.heroCard {
+  width: 100%;
+  max-width: 420px;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-xl), 0 0 0 1px rgba(0,0,0,0.03);
 }
-.mockTitleBar {
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-subtle);
+}
+.cardDot { width: 10px; height: 10px; border-radius: 50%; }
+.cardTitle { margin-left: 8px; font-size: 12px; font-weight: 600; color: var(--text-tertiary); }
+.cardBody { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+
+.statRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.statItem {
+  background: var(--bg-subtle);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+  text-align: center;
+}
+.statVal { display: block; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.04em; color: var(--text-primary); }
+.statLabel { display: block; font-size: 11px; color: var(--text-tertiary); font-weight: 500; margin-top: 2px; }
+
+.userRow {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 12px;
   background: var(--bg-subtle);
-  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius);
 }
-.mockDots { display: flex; gap: 5px; }
-.mockDots span { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
-.mockAddr {
-  flex: 1;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 11px;
-  color: var(--text-tertiary);
-  font-family: var(--mono);
-}
-.mockBody { display: flex; }
-.mockSidebar {
-  width: 110px;
-  border-right: 1px solid var(--border);
-  padding: 12px 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.mockSideItem {
-  padding: 7px 10px;
-  border-radius: 7px;
-  font-size: 11px;
-  color: var(--text-tertiary);
-  font-weight: 500;
-}
-.mockSideActive { background: var(--blue-50); color: var(--blue-600); font-weight: 600; }
-.mockMain { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
-.mockKpis { display: flex; gap: 8px; }
-.mockKpi {
-  flex: 1;
-  background: var(--bg-subtle);
-  border-radius: 10px;
-  padding: 10px;
-}
-.mockKpiVal { display: block; font-size: 15px; font-weight: 700; color: var(--text-primary); }
-.mockKpiLabel { display: block; font-size: 10px; color: var(--text-tertiary); margin-top: 2px; }
-.mockChart { border-radius: 10px; overflow: hidden; background: var(--bg-subtle); padding: 8px; height: 70px; }
-.mockChart svg { width: 100%; height: 100%; }
-.mockServices { display: flex; flex-direction: column; gap: 4px; }
-.mockService {
+.fakeAvatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--blue-600);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 10px;
-  background: var(--bg-subtle);
-  border-radius: 8px;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.fakeName { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.fakeEmail { font-size: 11px; color: var(--text-tertiary); }
+.activePill {
+  margin-left: auto;
   font-size: 11px;
-  color: var(--text-secondary);
-}
-.mockDot2 { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.healthy { background: var(--green); }
-.degraded { background: var(--amber); }
-.mockStatus { margin-left: auto; font-size: 10px; color: var(--text-tertiary); }
-
-/* Trusted */
-.trustedSection { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.trustedLabel { font-size: 13px; color: var(--text-tertiary); text-align: center; margin-bottom: 20px; }
-.logos { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-.logoChip {
-  padding: 7px 18px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  font-size: 13px;
   font-weight: 600;
-  color: var(--text-tertiary);
-  background: var(--white);
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 3px 10px;
+  border-radius: 20px;
 }
 
-/* Stats */
-.statsSection { padding: 80px 0; }
-.statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.statCard {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 32px 24px;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
+.progressSection { display: flex; flex-direction: column; gap: 10px; }
+.progressItem {}
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 5px;
 }
-.statVal { display: block; font-size: 2.2rem; font-weight: 800; color: var(--blue-600); letter-spacing: -0.04em; }
-.statLabel { display: block; font-size: 13px; color: var(--text-tertiary); margin-top: 4px; font-weight: 500; }
-
-/* Features */
-.featSection { padding: 0 0 80px; }
-.sectionHead { text-align: center; max-width: 520px; margin: 0 auto 48px; }
-.eyebrow { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue-600); margin-bottom: 12px; }
-.sectionHead h2 { font-size: clamp(1.7rem, 2.5vw, 2.2rem); margin-bottom: 14px; }
-.sectionHead p { color: var(--text-secondary); font-size: 16px; }
-.featGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.featCard {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.15s, transform 0.15s;
+.progressTrack {
+  height: 5px;
+  background: var(--border);
+  border-radius: 10px;
+  overflow: hidden;
 }
-.featCard:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.featIcon { font-size: 24px; margin-bottom: 14px; }
-.featCard h3 { font-size: 15px; margin-bottom: 8px; }
-.featCard p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
-
-/* CTA */
-.ctaSection { padding: 0 0 80px; }
-.ctaBox {
+.progressFill {
+  height: 100%;
   background: var(--blue-600);
-  border-radius: var(--radius-xl);
-  padding: 56px 48px;
+  border-radius: 10px;
+  transition: width 0.6s ease;
+}
+
+/* Features section */
+.featuresSection {
+  padding: 100px 0;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+.sectionHead {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue-600);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+.sectionHead h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.sectionHead p { font-size: 16px; color: var(--text-secondary); }
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.featureCard {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.featureCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.featureIcon { font-size: 28px; margin-bottom: 16px; }
+.featureCard h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.featureCard p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+/* CTA Banner */
+.ctaBanner {
+  padding: 80px 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+}
+.ctaInner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
 }
-.ctaText h2 { font-size: clamp(1.5rem, 2vw, 2rem); color: white; margin-bottom: 8px; letter-spacing: -0.03em; }
-.ctaText p { font-size: 15px; color: rgba(255,255,255,0.75); }
-.ctaBtns { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
-.ctaBtns .btn-primary { background: white; color: var(--blue-600); }
-.ctaBtns .btn-primary:hover { background: var(--blue-50); }
-.ctaBtns .btn-secondary { background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3); }
-.ctaBtns .btn-secondary:hover { background: rgba(255,255,255,0.25); }
-
-@media (max-width: 900px) {
-  .hero { flex-direction: column; }
-  .heroVisual { max-width: 100%; width: 100%; }
-  .statsGrid { grid-template-columns: repeat(2, 1fr); }
-  .featGrid { grid-template-columns: repeat(2, 1fr); }
-  .ctaBox { flex-direction: column; text-align: center; }
+.ctaInner h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
 }
-@media (max-width: 600px) {
-  .featGrid { grid-template-columns: 1fr; }
-  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+.ctaInner p { font-size: 15px; color: var(--text-secondary); }
+
+@media (max-width: 1024px) {
+  .hero { flex-direction: column; min-height: auto; padding: 60px 24px 40px; }
+  .heroVisual { width: 100%; }
+  .featureGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .featureGrid { grid-template-columns: 1fr; }
+  .ctaInner { flex-direction: column; align-items: flex-start; }
 }

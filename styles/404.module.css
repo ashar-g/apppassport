@@ -1,11 +1,30 @@
-.page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
-.content { text-align: center; animation: fadeUp 0.4s ease both; }
-.code {
-  display: block;
-  font-size: 7rem; font-weight: 800; letter-spacing: -0.05em;
-  color: var(--border);
-  line-height: 1; margin-bottom: 16px;
+.main {
+  padding-top: 62px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 24px;
 }
-.title { font-size: 1.8rem; letter-spacing: -0.02em; margin-bottom: 10px; }
-.desc { color: var(--text-secondary); font-size: 15px; margin-bottom: 28px; }
-.actions { display: flex; gap: 12px; justify-content: center; }
+.code {
+  font-size: 6rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--blue-100);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  max-width: 360px;
+}
