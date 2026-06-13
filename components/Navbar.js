@@ -135,6 +135,7 @@ export default function Navbar() {
                     Dashboard
                   </Link>
                   <div className={styles.menuDivider} />
+                  {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                   <a href="/api/auth/logout" className={styles.menuItemDanger}>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                       <path d="M5 7h7M9 5l3 2-3 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -147,7 +148,9 @@ export default function Navbar() {
             </div>
           ) : (
             <div className={styles.authBtns}>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
               <a href="/api/auth/login" className="btn btn-ghost btn-sm">Sign in</a>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
               <a href="/api/auth/login?returnTo=/dashboard" className="btn btn-primary btn-sm">Get started</a>
             </div>
           )}
@@ -179,8 +182,8 @@ export default function Navbar() {
           ))}
           <div className={styles.mobileDivider} />
           {user
-            ? <a href="/api/auth/logout" className="btn btn-secondary" style={{ width: "100%", justifyContent: "center" }}>Sign out</a>
-            : <a href="/api/auth/login?returnTo=/dashboard" className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }}>Sign in with Auth0</a>
+            ? <>{/* eslint-disable-next-line @next/next/no-html-link-for-pages */}<a href="/api/auth/logout" className="btn btn-secondary" style={{ width: "100%", justifyContent: "center" }}>Sign out</a></>
+            : <>{/* eslint-disable-next-line @next/next/no-html-link-for-pages */}<a href="/api/auth/login?returnTo=/dashboard" className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }}>Sign in with Auth0</a></>
           }
         </div>
       )}

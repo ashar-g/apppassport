@@ -43,6 +43,7 @@ export default function Home() {
                 </>
               ) : (
                 <>
+                  {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                   <a href="/api/auth/login?returnTo=/dashboard" className="btn btn-primary">
                     Get started free
                   </a>
@@ -125,6 +126,7 @@ export default function Home() {
               {user ? (
                 <Link href="/dashboard" className="btn btn-primary">Open Dashboard →</Link>
               ) : (
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                 <a href="/api/auth/login?returnTo=/dashboard" className="btn btn-primary">Sign in with Auth0</a>
               )}
             </div>

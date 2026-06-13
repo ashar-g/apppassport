@@ -69,6 +69,7 @@ export default function Profile({ user, rawClaims }) {
                 </div>
 
                 <div className={styles.identityActions}>
+                  {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                   <a href="/api/auth/logout" className="btn btn-secondary btn-sm">Sign out</a>
                 </div>
               </div>

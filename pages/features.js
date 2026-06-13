@@ -82,6 +82,7 @@ export default function Features() {
           <div className="container">
             <h2>Ready to ship?</h2>
             <p>Clone the repo, add your Auth0 credentials, deploy to Vercel.</p>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/api/auth/login?returnTo=/dashboard" className="btn btn-primary">
               Sign in and explore →
             </a>
