@@ -1,11 +1,10 @@
-import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
-  const { data: session } = useSession();
+  const session = null;
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);

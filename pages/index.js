@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "../styles/Home.module.css";
@@ -15,7 +14,7 @@ const stats = [
 const features = [
   { icon: "⚡", title: "Real-Time Observability", desc: "Sub-10ms event streaming across every service in your stack. Always know what's happening." },
   { icon: "🧠", title: "AI Anomaly Detection", desc: "ML models learn your baseline and surface issues before they escalate. Zero config required." },
-  { icon: "🔒", title: "Enterprise SSO", desc: "OIDC with Okta, Azure AD, or any SAML provider. Full RBAC and audit trails included." },
+  { icon: "🔒", title: "Auth0 Auth0", desc: "OIDC with Auth0, Azure AD, or any SAML provider. Full RBAC and audit trails included." },
   { icon: "📊", title: "Predictive Analytics", desc: "Forecast capacity, detect cost anomalies, and surface optimizations automatically." },
   { icon: "🔁", title: "Automated Runbooks", desc: "Trigger remediations automatically when thresholds breach. Reduce MTTR by 70%." },
   { icon: "🌐", title: "Multi-Cloud Native", desc: "First-class AWS, GCP, Azure, and Kubernetes support. One pane of glass." },
@@ -24,7 +23,7 @@ const features = [
 const logos = ["Stripe", "Shopify", "Figma", "Notion", "Vercel", "Linear"];
 
 export default function Home() {
-  const { data: session } = useSession();
+  const session = null;
   return (
     <>
       <Head>
@@ -51,7 +50,7 @@ export default function Home() {
               {session ? (
                 <Link href="/dashboard" className="btn btn-primary btn-lg">Go to Dashboard →</Link>
               ) : (
-                <button className="btn btn-primary btn-lg" onClick={() => signIn("okta", { callbackUrl: "/dashboard" })}>
+                <button className="btn btn-primary btn-lg" onClick={() => window.location.href="/auth/login";//"okta", { callbackUrl: "/dashboard" })}>
                   Get started free
                 </button>
               )}
@@ -165,7 +164,7 @@ export default function Home() {
                 {session ? (
                   <Link href="/dashboard" className="btn btn-primary btn-lg">Open Dashboard</Link>
                 ) : (
-                  <button className="btn btn-primary btn-lg" onClick={() => signIn("okta", { callbackUrl: "/dashboard" })}>
+                  <button className="btn btn-primary btn-lg" onClick={() => window.location.href="/auth/login";//"okta", { callbackUrl: "/dashboard" })}>
                     Start for free
                   </button>
                 )}

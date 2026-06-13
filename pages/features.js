@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useSession, signIn } from "next-auth/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "../styles/Features.module.css";
@@ -8,19 +7,19 @@ const plans = [
   { name:"Starter", price:"$0", period:"/mo", desc:"For small teams getting started.", highlight:false,
     features:["Up to 5 services","1M events/day","7-day retention","Slack alerts","Community support"], cta:"Get started free" },
   { name:"Growth", price:"$149", period:"/mo", desc:"For scaling teams with complex infra.", highlight:true,
-    features:["Unlimited services","10B events/day","90-day retention","AI anomaly detection","Automated runbooks","Okta SSO","Priority support"], cta:"Start free trial" },
+    features:["Unlimited services","10B events/day","90-day retention","AI anomaly detection","Automated runbooks","Auth0 Auth0","Priority support"], cta:"Start free trial" },
   { name:"Enterprise", price:"Custom", period:"", desc:"For mission-critical deployments.", highlight:false,
     features:["Unlimited everything","Custom retention","Dedicated infra","Custom ML models","SLA guarantee","SAML/SCIM","Dedicated CSM"], cta:"Contact sales" },
 ];
 
 const integrations = [
   ["AWS CloudWatch","Cloud"],["Google Cloud","Cloud"],["Azure Monitor","Cloud"],["Kubernetes","Infra"],
-  ["Grafana","Observability"],["Datadog","Observability"],["PagerDuty","Alerting"],["Okta","Identity"],
+  ["Grafana","Observability"],["Datadog","Observability"],["PagerDuty","Alerting"],["Auth0","Identity"],
   ["Slack","Collab"],["GitHub","DevOps"],["Terraform","DevOps"],["Prometheus","Metrics"],
 ];
 
 export default function Features() {
-  const { data: session } = useSession();
+  const session = null;
   return (
     <>
       <Head><title>Features — AppPassport</title></Head>
@@ -118,7 +117,7 @@ export default function Features() {
                   <button
                     className={`btn ${plan.highlight ? "btn-primary" : "btn-secondary"}`}
                     style={{ width: "100%" }}
-                    onClick={() => !session && signIn("okta", { callbackUrl: "/dashboard" })}
+                    onClick={() => !session && window.location.href="/auth/login";//"okta", { callbackUrl: "/dashboard" })}
                   >
                     {plan.cta}
                   </button>
