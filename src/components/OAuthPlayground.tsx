@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { AppRegistry, UserProfile, SimulationState, AuthLog } from '../types';
 import { simulateJwtCreation, generateId, getBgColorFromSeed } from '../data';
 import { ShieldCheck, Fingerprint, LogIn, ArrowRight, RefreshCw, Terminal, Check, Info, Server, HelpCircle, ArrowLeft, ToggleRight, AlertCircle } from 'lucide-react';
+import { useCustomAuth0 } from './Auth0Wrapper';
 
 interface OAuthPlaygroundProps {
   apps: AppRegistry[];
@@ -18,6 +19,7 @@ interface OAuthPlaygroundProps {
 
 export default function OAuthPlayground({ apps, selectedAppId, setSelectedAppId, profile, onAddLog }: OAuthPlaygroundProps) {
   const selectedApp = apps.find(a => a.id === selectedAppId) || apps[0];
+  const { isConfigured, isAuthenticated } = useCustomAuth0();
   
   // Local flow states
   const [step, setStep] = useState<'app_initial' | 'consent_check' | 'redirecting' | 'authenticated'>('app_initial');
@@ -184,14 +186,21 @@ export default function OAuthPlayground({ apps, selectedAppId, setSelectedAppId,
                 <div className="p-6 bg-white border-t border-zinc-105">
                   
                   {/* Passport Identity Provider Branding bar */}
-                  <div className="flex items-center space-x-2 border-b border-zinc-100 pb-4 mb-4">
-                    <div className="h-9 w-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
-                      🛡️
+                  <div className="flex items-center justify-between border-b border-zinc-100 pb-4 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <div className="h-9 w-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
+                        🛡️
+                      </div>
+                      <div>
+                        <h4 className="font-sans text-xs font-bold text-zinc-900 leading-none">AppPassport Identity Provider</h4>
+                        <p className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase leading-none mt-1">Authorization Server</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-sans text-xs font-bold text-zinc-900 leading-none">AppPassport Identity Provider</h4>
-                      <p className="font-mono text-[8px] tracking-widest text-zinc-400 uppercase leading-none mt-1">Authorization Server</p>
-                    </div>
+                    {isConfigured && isAuthenticated && (
+                      <span className="font-mono text-[9px] bg-blue-50 text-blue-700 border border-blue-105 px-2 py-0.5 rounded uppercase font-bold shrink-0">
+                        Auth0 Federated Mode
+                      </span>
+                    )}
                   </div>
 
                   {/* Informant block */}

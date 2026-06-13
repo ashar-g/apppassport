@@ -6,7 +6,8 @@
 import React, { useState } from 'react';
 import { UserProfile } from '../types';
 import { simulateJwtCreation } from '../data';
-import { ShieldCheck, User, AtSign, Globe, Sparkles, Database, Check, Fingerprint, Award, ToggleLeft, ToggleRight, Phone, Info } from 'lucide-react';
+import { ShieldCheck, User, AtSign, Globe, Sparkles, Database, Check, Fingerprint, Award, ToggleLeft, ToggleRight, Phone, Info, Server, HelpCircle, Key } from 'lucide-react';
+import { useCustomAuth0 } from './Auth0Wrapper';
 
 interface ProfileProps {
   profile: UserProfile;
@@ -14,6 +15,22 @@ interface ProfileProps {
 }
 
 export default function Profile({ profile, onUpdateProfile }: ProfileProps) {
+  const { 
+    isConfigured, 
+    isAuthenticated, 
+    domain: activeDomain, 
+    clientId: activeClientId, 
+    saveConfig, 
+    clearConfig, 
+    login, 
+    logout 
+  } = useCustomAuth0();
+
+  // Dynamic configuration inputs
+  const [inpDomain, setInpDomain] = useState(activeDomain || '');
+  const [inpClientId, setInpClientId] = useState(activeClientId || '');
+  const [showConfigDetails, setShowConfigDetails] = useState(!isConfigured);
+
   // Editing modes states
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(profile.name);
@@ -185,7 +202,194 @@ export default function Profile({ profile, onUpdateProfile }: ProfileProps) {
 
           {/* Column B & C: Profiles configuration panel and active claims packet */}
           <div className="md:col-span-2 space-y-6">
-            
+
+            {/* Real-world Auth0 SSO Integration Console */}
+            <div className="rounded-2xl border border-blue-150 bg-white p-6 shadow-md shadow-blue-50/50">
+              <div className="flex items-center justify-between border-b border-blue-105 pb-3 mb-4">
+                <h3 className="font-sans text-base font-bold text-neutral-900 flex items-center space-x-2">
+                  <Server size={18} className="text-blue-500" />
+                  <span>Auth0 Enterprise IDP Connection</span>
+                </h3>
+                <span className={`px-2 py-0.5 font-mono text-[9px] font-bold rounded ${
+                  isConfigured && isAuthenticated 
+                    ? 'bg-blue-100 text-blue-700' 
+                    : isConfigured 
+                    ? 'bg-amber-100 text-amber-700' 
+                    : 'bg-zinc-100 text-zinc-500'
+                }`}>
+                  {isConfigured && isAuthenticated ? 'SSO ACTIVE' : isConfigured ? 'CONNECTED (IDLE)' : 'DISCONNECTED'}
+                </span>
+              </div>
+
+              {isConfigured ? (
+                <div className="space-y-4">
+                  {isAuthenticated ? (
+                    <div className="p-4 bg-blue-50/50 rounded-xl border border-blue-100 flex items-start space-x-3 text-left">
+                      <div className="bg-blue-500 text-white p-2 rounded-lg shrink-0">
+                        <Fingerprint size={18} />
+                      </div>
+                      <div className="text-xs">
+                        <h4 className="font-bold text-blue-900">Federated Identity Active</h4>
+                        <p className="text-blue-700/85 mt-1 leading-relaxed">
+                          Your local AppPassport credentials are synchronized cryptographically in real-time with your Auth0 profile!
+                        </p>
+                        <div className="mt-3 font-mono text-[10px] text-zinc-500 space-y-1">
+                          <p><strong>IDP Tenant:</strong> {activeDomain}</p>
+                          <p><strong>App Client ID:</strong> {activeClientId}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={logout}
+                          className="mt-4 rounded-xl bg-red-600 hover:bg-red-700 hover:scale-[1.01] px-4 py-2 font-sans font-bold text-white transition-all text-xs"
+                        >
+                          Sign Out of Auth0 session
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-4 bg-amber-50/55 rounded-xl border border-amber-100 flex items-start space-x-3 text-left">
+                      <div className="bg-amber-500 text-white p-2 rounded-lg shrink-0">
+                        <Key size={18} />
+                      </div>
+                      <div className="text-xs">
+                        <h4 className="font-bold text-amber-900">Auth0 Credentials Hooked Up!</h4>
+                        <p className="text-amber-700 mt-1 leading-relaxed">
+                          Your Auth0 client application credentials are ready. Redirect to Auth0 to perform secure login validation and fetch your real user account details.
+                        </p>
+                        
+                        <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                          <button
+                            type="button"
+                            onClick={login}
+                            className="bg-amber-600 hover:bg-amber-700 px-4 py-2 font-bold text-white rounded-xl transition-colors shrink-0"
+                          >
+                            Sign In with Auth0 (SSO Redirect)
+                          </button>
+                          
+                          <button
+                            type="button"
+                            onClick={clearConfig}
+                            className="text-zinc-500 hover:text-red-600 px-3 py-2 font-semibold transition-colors shrink-0"
+                          >
+                            Disconnect Client
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {!isAuthenticated && (
+                    <div className="pt-2">
+                      <button
+                        onClick={() => setShowConfigDetails(!showConfigDetails)}
+                        className="text-xs font-semibold text-zinc-500 hover:text-blue-600 underline"
+                      >
+                        {showConfigDetails ? 'Hide Setup Tutorial' : 'Inspect Auth0 Application Configuration'}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <p className="text-xs text-zinc-650 leading-relaxed">
+                    Test your real Auth0 Identity Provider setup! Provide the standard public <strong>Domain</strong> and <strong>Client ID</strong> associated with your Auth0 account to enable active single-sign-on redirects.
+                  </p>
+                  
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setShowConfigDetails(true)}
+                      className="rounded-xl border border-blue-200 bg-blue-50/50 text-blue-700 hover:bg-blue-105 hover:text-blue-800 px-4 py-2 font-sans font-bold transition-all text-xs"
+                    >
+                      Configure Auth0 Credentials
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {showConfigDetails && (
+                <div className="mt-4 p-4 bg-zinc-50 rounded-xl border border-zinc-200 text-xs text-zinc-650 space-y-3 font-sans text-left">
+                  <h4 className="font-bold text-zinc-850 flex items-center gap-1">
+                    <HelpCircle size={14} className="text-blue-500" />
+                    <span>How to set up Auth0 SSO in 3 Steps:</span>
+                  </h4>
+                  <ol className="list-decimal pl-4 space-y-2 leading-relaxed text-zinc-600">
+                    <li>
+                      Log in to your <strong>Auth0 Dashboard</strong>, go to <strong>Applications</strong>, and create a <strong>Single Page Application (SPA)</strong>.
+                    </li>
+                    <li>
+                      Scroll down to <strong>Application Settings</strong> and add this exact URL as your:
+                      <div className="my-1.5 p-2 bg-white rounded font-mono text-[10px] text-blue-600 break-all select-all border border-zinc-200">
+                        {window.location.origin}
+                      </div>
+                      to the following lists:
+                      <ul className="list-disc pl-4 mt-1 font-semibold space-y-0.5">
+                        <li>Allowed Callback URLs</li>
+                        <li>Allowed Logout URLs</li>
+                        <li>Allowed Web Origins</li>
+                      </ul>
+                    </li>
+                    <li>
+                      Set the credentials inside AI Studio env configuration or input them below:
+                    </li>
+                  </ol>
+
+                  <div className="pt-3 border-t border-zinc-200/80 space-y-3">
+                    <div>
+                      <label className="block text-[10px] font-mono font-bold text-zinc-500 uppercase mb-1">
+                        Auth0 Tenant Domain
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. dev-abcdefg.us.auth0.com"
+                        value={inpDomain}
+                        onChange={(e) => setInpDomain(e.target.value)}
+                        className="w-full rounded-xl border border-zinc-205 bg-white px-3 py-1.5 text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-mono font-bold text-zinc-500 uppercase mb-1">
+                        Auth0 Application Client ID
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. vX7gB0p83K9N..."
+                        value={inpClientId}
+                        onChange={(e) => setInpClientId(e.target.value)}
+                        className="w-full rounded-xl border border-zinc-205 bg-white px-3 py-1.5 text-xs font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="flex gap-2 justify-end">
+                      {isConfigured && (
+                        <button
+                          type="button"
+                          onClick={clearConfig}
+                          className="rounded-lg bg-zinc-200 hover:bg-zinc-300 px-3.5 py-1.5 text-xs font-bold text-zinc-700"
+                        >
+                          Reset App
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (!inpDomain || !inpClientId) {
+                            alert('Please enter both your Auth0 Domain and Client ID.');
+                            return;
+                          }
+                          saveConfig(inpDomain, inpClientId);
+                        }}
+                        className="rounded-lg bg-blue-600 hover:bg-blue-700 px-4 py-1.5 text-xs font-bold text-white shadow-sm"
+                      >
+                        Activate Credentials
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Interactive Settings Frame */}
             <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between border-b border-zinc-100 pb-3 mb-4">

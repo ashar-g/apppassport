@@ -5,6 +5,7 @@
 
 import { AppWindow, User, ShieldAlert, LogOut, Terminal, Activity, FileKey } from 'lucide-react';
 import { UserProfile } from '../types';
+import { useCustomAuth0 } from './Auth0Wrapper';
 
 interface NavbarProps {
   currentTab: string;
@@ -14,6 +15,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({ currentTab, setCurrentTab, profile, onLogout }: NavbarProps) {
+  const { isAuthenticated, isConfigured } = useCustomAuth0();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/85 backdrop-blur-md">
       <div id="navbar-container" className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -94,12 +97,32 @@ export default function Navbar({ currentTab, setCurrentTab, profile, onLogout }:
         {/* User Identity and Session Actions */}
         <div id="navbar-actions" className="flex items-center space-x-4">
           {/* Quick connection state indicators */}
-          <div className="hidden lg:flex items-center space-x-2 rounded-full border border-emerald-100 bg-emerald-50/50 px-3 py-1 font-mono text-[10px] text-emerald-700">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-            </span>
-            <span>Pass_ID Connected</span>
+          <div className="hidden lg:flex items-center space-x-2 rounded-full border border-emerald-100 bg-emerald-50/50 px-3 py-1 font-mono text-[10px]">
+            {isConfigured && isAuthenticated ? (
+              <>
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+                </span>
+                <span className="text-blue-700 font-bold">Auth0 SSO Active</span>
+              </>
+            ) : isConfigured ? (
+              <>
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500"></span>
+                </span>
+                <span className="text-amber-700 font-bold">Auth0 IDP (Sign-in Required)</span>
+              </>
+            ) : (
+              <>
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                </span>
+                <span className="text-emerald-700 font-semibold">Simulated Identity Mode</span>
+              </>
+            )}
           </div>
 
           {/* Profile Quick-view */}

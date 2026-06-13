@@ -12,6 +12,7 @@ import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
 import OAuthPlayground from './components/OAuthPlayground';
 import { ShieldCheck, HeartPulse, RefreshCw, X, Sparkles } from 'lucide-react';
+import { useCustomAuth0 } from './components/Auth0Wrapper';
 
 export default function App() {
   // Navigation Routing States
@@ -25,6 +26,28 @@ export default function App() {
 
   // Success Notification banner overlay triggers
   const [bannerMsg, setBannerMsg] = useState<string | null>(null);
+
+  const { isAuthenticated, user, logout: auth0Logout, isConfigured } = useCustomAuth0();
+
+  // Sync Auth0 identity with local AppPassport profile
+  useEffect(() => {
+    if (isConfigured && isAuthenticated && user) {
+      const auth0Profile: UserProfile = {
+        id: user.sub || 'pass_usr_auth0',
+        name: user.name || user.nickname || 'Auth0 User',
+        email: user.email || '',
+        avatar: user.picture || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop',
+        developerStatus: true,
+        verified: user.email_verified ?? true,
+        registeredAt: new Date().toISOString(),
+        phone: user.phone_number || '',
+        company: 'Auth0 Federated IDP',
+        walletAddress: '0x_auth0_federated_id'
+      };
+      setProfile(auth0Profile);
+      localStorage.setItem('apppass_profile', JSON.stringify(auth0Profile));
+    }
+  }, [isConfigured, isAuthenticated, user]);
 
   // 1. Initial State Hydration via persistent localStorage
   useEffect(() => {
@@ -192,8 +215,15 @@ export default function App() {
           setCurrentTab={setCurrentTab}
           profile={profile}
           onLogout={() => {
-            triggerPushBanner('Successfully logged index session out. Simulating authentication refresh.');
-            setCurrentTab('home');
+            if (isConfigured && isAuthenticated) {
+              auth0Logout();
+            } else {
+              // Standard simulated reset
+              localStorage.removeItem('apppass_profile');
+              setProfile(INITIAL_PROFILE);
+              triggerPushBanner('Successfully logged index session out. Simulating authentication refresh.');
+              setCurrentTab('home');
+            }
           }}
         />
 
