@@ -1,0 +1,6 @@
+{
+  "name": "AppPassport",
+  "description": "A secure Single Sign-On (SSO) developer OAuth portal and identity passport for registering apps, managing client credentials, and simulating secure client authentication flows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
