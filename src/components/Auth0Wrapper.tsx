@@ -131,9 +131,9 @@ export function Auth0Wrapper({ children }: Auth0WrapperProps) {
       return;
     }
 
-    // 2. Fallback to LocalStorage config
-    const storedDomain = localStorage.getItem('apppass_auth0_domain') || '';
-    const storedClientId = localStorage.getItem('apppass_auth0_client_id') || '';
+    // 2. Fallback to LocalStorage config or official pre-configured defaults
+    const storedDomain = localStorage.getItem('apppass_auth0_domain') || 'proidentity.au.auth0.com';
+    const storedClientId = localStorage.getItem('apppass_auth0_client_id') || 'oLpSrx8dEXjxqv8q25Bf33ELPM8mWOVQ';
 
     if (storedDomain && storedClientId) {
       setConfig({ domain: storedDomain, clientId: storedClientId });
